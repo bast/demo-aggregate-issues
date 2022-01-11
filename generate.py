@@ -1,9 +1,7 @@
 import requests
 import os
 
-
 PERSONAL_ACCESS_TOKEN = os.environ.get("PERSONAL_ACCESS_TOKEN", "")
-
 
 def run_graphql_query(query):
     headers = {"Authorization": f"Bearer {PERSONAL_ACCESS_TOKEN}"}
@@ -14,8 +12,7 @@ def run_graphql_query(query):
         return request.json()
     else:
         raise Exception(f"Query failed to run by returning code {request.status_code}")
-
-
+        
 def collect_issues(organization, label):
     """
     Fetches all issues from organization with the particular label.
@@ -45,12 +42,10 @@ def collect_issues(organization, label):
 
     return list(map(lambda n: (n["node"]["title"], n["node"]["url"]), nodes))
 
-
 def main():
     print("# Good first issues")
     for (title, url) in collect_issues("coderefinery", "good first issue"):
         print(f"- [{title}]({url})")
-
 
 if __name__ == "__main__":
     main()
